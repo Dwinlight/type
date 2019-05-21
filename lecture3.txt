@@ -1,0 +1,285 @@
+a good algorithm can only be broken by exhaustive methods
+
+Lesson 5:
+monitoring is important !! 
+2nd ww the german army never imagined that their ciphers were brken 
+even more than security it is crucial to detect attacks 
+
+TODAY 
+DES: data encryption standard (1977). It was a Us standard for symetric encryption adopted after an open call launched in 1973 withdrawn in 2005
+DES is a NSA modif of ibm's lucifer: it's a block cipher with 56 bit keysize and 64 bit blocsize 
+it is the first modern cipher but the last one designed in secrecy 
+
+importance of DES 
+DES is one of the most widely deployed ciphers: it is still used in the banking industry thx to 3DES
+DES started public research on crytpo until the 1970's crypto was secret 
+But basic DES is completely insecure: the keysize is way too small 
+
+Breaking DES
+in the 80's some researchers expected the 56 bit keysize to be too small 
+in the 1998 the EFF built a $250 000 machine that can breask DES in 2days 
+in 2006 german built a 10 000$ machine break in one week 
+
+20y later 
+in 1997, the NIST launched a competition for a new block cipher standard  the Advenced Encryption Standard whit keysize 128 192 and 256 bits 
+in 2000 the winner is Rijndael designed by Belgian resercher. It becam the US standard in 2002 replacing DES
+the AES is now implemented in intel processor 
+
+#####################
+The paradoxical age 
+---------------------
+lesson6 
+secrets do not have to be shared
+public key crypto
+------------------------
+
+invented by diffie and hellman in 1976: but they don't provide any example 
+
+
+asymetric key encryption 
+2 diff key (encryption key public decryption key secret) 
+
+symetric: efficient and wideely used/ but management and storage of secret key is tricky 
+As use just when it's necessarely 
+
+Example: Malware 
+for ransomware 
+si ton virus est crypté en sym=> touve le virus et check le file la clé y est
+mais en asy: 
+a public key pk is embedded in the malwre
+select a randomkey k for sym ecrypt
+k encrypt target files and destroy the original files
+stores c = Epk (k) and destroy k 
+ask for ransom to disclose k from c and recover the files 
+
+Autres exemple les jeux : 
+en sym tu peux faire du reverse ingeneried 
+1er utilisation public key: atari 7800 (1986)
+Headcarter atari machine pour encrypter et private key dans la console 
+
+crypto trends and challenge 
+triangle(security,functionnalities, effeciency) 
+
+
+
+###################################
+##################################
+###############################
+Hashfucntion 
+
+key less crypto 
+
+need a one way function 
+f: E --> F
+   x |-> y
+function non biject, on ne peut pas trouver l'entrée à partir de la sortie 
+(details photo) P
+PRGK (output)
+big possibility for input to avoid the exhaustiv search 
+
+
+Classical hash function 
+
+many numbers have a special format to detect errors 
+M = |   m   | H(m)|
+H is a hash function chosen to detect small modif of m: for all m, H(m) != H(m') 
+Which error ? 
+the case of decimal digits single difgit/ transpo  / twin (5-7, 38-83, 66-88)
+Ex: isbn livres: 
+recent books: 13-digit number
+the digit H(m)=m1 is defined by somme des m impair + somme  des 3* m paire = 0 [10] becomes incorrect if a single m is changed  (indice paires ou ipaires)
+changer in digit marche pas mais swapper oui detacte pas les erreur de transpo de 5 
+
+PERMUTATION ?? 
+
+Credit cards numbers: luhn 
+
+mn, mn-1 , ............, m2, H(m) 
+H(m) = m1
+sum i odd mi + sum i even f(mi) = 0 [10]
+where f(x) = 2x + E(x/5) [10]
+eq non valide si on change 1 digit
+eq non valide si on swap 2 nombre consecutif exepté 0 et 9 (seuls point fixes de f) 
+
+solver l'erreur: trouver une fonctione qui detect tous les changement et toutes les transpo 
+we need f of {0,.....,9} such that f(y)-y is also a permutation 
+EXIST ? 
+on sait pas 
+du coup proba 
+the proba that a function is a permutation in [|0;9|] est 10! / 10^10 
+since 10! * 10! / 10^10 maybe there exists a permutation f such that f(y)-y[10] i also a permutation 
+
+
+Theorem: there is no permutation f of {0,...,9} such that f(y)-y[10] is also a permutation 
+proof 
+let f be a permutation for any permutation g of {0...9}
+sum g(i) = 9*10/2 b= 45 = 5[10]
+if h(y) = f(y)-y
+then sim h(i) = sum f(i) - sum i = 0 [10]
+
+
+Recap cf photo
+
+
+
+parity check 
+messaged form with bits 0 or 1
+parity check H(m) is a bit 
+0 if the number of 1 in (m0 m1 ...) is even 
+1 otherwies
+if we sum all......
+
+CRC
+
+
+
+Cryptography Hash function  (ex blockchains) 
+
+diffrent from normal hash fucntions = checksums 
+a hash ficntion outputs a small digest from any in,put 
+
+a hash finction is deterministic 
+
+block chains are chaines together by hashing
+each block containes the hash of the previous one 
+
+we never stored password, only the the hash result 
+
+en crypto les hash finction sont plus longue mais respondent à des regle precises 
+le digest doit ressembler à un random 
+
+one wayness
+preimage resistance
+collision resistance 
+3requ pour hash fonction en crypto 
+
+
+one wayness: 
+
+Let H have n bit digests 
+H is on way if we can't find the input fromthe output 
+always posibl e to find = > exhaustive 
+si la sortie n'est pas random on peut toujours trouver plus simplment 
+
+: compute f(x) fr all  x and store in a table (x, f(x))
+sort the table over f(x)
+for any y find the collision in the table 
+la precomputation est offline donc pas comptée
+called table look 
+
+
+time memory trade/off
+
+
+Cost   | Time | space 
+____________________
+search | 2^n  | O(1)
+Table  | O(n) | 2^n
+____________________
+
+look for a trade off 
+ 
+hellman introduced intermediate trade off beetween exhasitive search and table look up (last imporvement rainbow table)
+
+vecteur de n dimension en entrée et même espace de sortie 
+f : E -> E
+    X -> Y
+
+supposons que les Y soient la composition de plein de f 
+f.f.f.f.f(X) = Y 
+En composant on change l'ordre des composantes et change les possibilités => on compose si on a pas la variable on recompose etc . 
+on stock la derniere et la 1er colonnes 
+
+complexity 
+O(t) evalutation of f 
+O(t) table look up of the colum 
+total cost O(t logt)
+space cost O(m)
+
+total cost time  O( (t+m) log m) space O(m)
+
+prb tu peux boucler sur une des valeurs => collision 
+
+
+PREIMAGE RESISTANCE
+
+given a random x it should be infeasible to outpu x != x' s.t H(x') = H(x)
+
+
+Collision resistance 
+nobody knows a collision that is a pair (x,y) st x!=y and H(x) H(y) 
+in theory there azre infenitly many collsion but we don't know any of them 
+
+
+Lesson 7 birthday paradox 
+consider m people in a room 
+A partir de quelle valeur peut on considérrer que 2 personne ont la meme valeur
+à 23 proba à 0.507
+à 30 0.706 
+
+
+
+Choose m values unitformitlu at random from a set of N 
+
+if m >= sqrt(N pi /2) there is half chance same 
+
+proba de aucune collision :
+
+1 * N-1 / N * N-2 / N * .....* N-m+1/N = N! / (N^m * (N-m)!)
+approx : exp(-1/N)*exp(-2/N).....exp(-m+1/N) = 
+
+
+Naive Birthday attack 
+generate random message
+compute their hashed h1= H(m1) ...
+if  t  > = 2^n/2 we should have a clollision  hi = hj
+but how cost ? 
+
+for i = 1: t
+	for j=i+1:t
+		if hi == hj
+			return mi,mj
+cot O(t ln t )  time and O(t) spce
+
+O(t) time now  => cycle detetion algo O(2^n/2) time & space
+Floyd's algo
+
+
+perfect hash random oracle 
+
+in practice : 
+
+most crypto hash function rely on iterative hashing: intuitevely we split the message into many blocks and hash blocks
+ MD5 sha1 sha2 use merkle damgard construction 
+
+compression function f
+
+split message in blocks 
+add a block with the lenght of the padding 
+
+enter all the block in f with the previous output iterate all the blocs and you get the hash
+
+add the lenghth to get all the 0 at the end of the message
+ any MD hash function is not weaker than its compression function 
+
+th: if one knows a collsion H(x) = H(x') then one can deduce (h,m) != (h',m') such that f(h,m) = f(h',m')
+
+any collisioninthte hf gives rise to a collsion in the compression function  
+
+
+MD 5
+
+designed by rivest 1991 to fix MD4
+
+trivial finalization 
+block  512 bit 
+IV and outpu t = 128 bits
+compression has 2 input
+
+MD5 est aussi encryptiolon algo pcq on peut revenir en arriere avant la derniere somme 
+
+
+
+En 1996 dobbertin trouve une pseudo collision (collsion pour la finction de compression seulement) 
+En 2004 MD5 1er collsion 
+
