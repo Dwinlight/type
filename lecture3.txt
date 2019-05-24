@@ -283,3 +283,112 @@ MD5 est aussi encryptiolon algo pcq on peut revenir en arriere avant la derniere
 En 1996 dobbertin trouve une pseudo collision (collsion pour la finction de compression seulement) 
 En 2004 MD5 1er collsion 
 
+
+2010: chinese disclosed the first 512 bit collision f(IV,m)=f(IV,m') ie Em(IV)=Em'(IV)
+
+MD5 collision dangerous, 2 totaly different things could looks like just by adding small things 
+si f1 et f2 same size it's now possible to quickly generate m1 & m2 st MD5(f1 || m1) = MD5(f2 || m2)
+==> flame virus 
+so we know now MD5 is not secrured but not all the application are insecured
+
+
+APOP
+
+mail : server send challenge c and computer answer MD5(c \\ password) 
+
+#####################
+SHA-1
+
+secure hash standard 
+
+1995 by NSA
+modified version of sha-0 released in 1993 and withdraw
+digest are 160 bits 
+compression function 512 bit x 160 bit
+
+
+MD5 attack en 2⁶⁴ mnt 2^80
+
+
+Merkle damgard like MD5
+Daies meyer like MD5
+
+sah1 message expancison 
+
+for t=0:15:
+	w[t] = message[t]
+for t = 16:79:
+	w[t] left rotate(w[t-3] xor w[t-8 xor w[t-14] xor w[t-16])
+in sha0 no rotate
+
+2017 collision trouvée
+
+
+
+2001 SHA-2
+
+digest size: 224,256,384,512
+same design
+sha2 hardware 
+
+bitcoin 
+
+in july 2015 the total numbr of double-sha-256 ever computed by bitcoin network (since 2009) was 10²5
+
+
+#######################################
+SHA-3
+
+the attacks of MD5 and SHA-1 motivated a competition for a new US standard
+
+there were 64 candidates in 2008 
+
+Then 5 finalist were selected: BLAKE, grostl, jh, keccak, skein 
+
+Keccak doesn't use the MD desgin 
+it based on the sponge construction 
+
+the message is absobed by a sponge 
+the disgest is squeezed out 
+
+
+
+####################"
+######################
+pseudo random number
+
+use for : simulation (test prg), sort ...
+
+PRNG: input short seed(password ... )
+output an arbitrrely long sequence of bit
+unsual requerement: for a random seed the output should have uniform distrib
+crypto secu the output should be indistinguishable from a sequenceof truly random bits
+mosst PRNG are not crypto secured
+
+Ex: PRNG standard in PKCS
+let H a crypto hash funcion such as SHA62
+seed | counter == hashing ==> sequence of pseudo random bits (256 bits for SHA-2)
+
+
+
+
+
+Conclusion:
+
+They are used almost everywhere 
+they are efficient
+but their security is still not very well understood
+
+
+application 
+
+choose a bit
+xrdn number
+c = H(b||x) 
+at least give b and x 
+"bit commitment"
+
+
+one time signature 
+
+
