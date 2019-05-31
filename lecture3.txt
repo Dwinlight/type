@@ -268,7 +268,7 @@ any collisioninthte hf gives rise to a collsion in the compression function
 
 
 MD 5
-
+Merckle damgard + block cipher
 designed by rivest 1991 to fix MD4
 
 trivial finalization 
@@ -278,7 +278,7 @@ compression has 2 input
 
 MD5 est aussi encryptiolon algo pcq on peut revenir en arriere avant la derniere somme 
 
-
+find a collision 2⁶⁴
 
 En 1996 dobbertin trouve une pseudo collision (collsion pour la finction de compression seulement) 
 En 2004 MD5 1er collsion 
@@ -295,7 +295,7 @@ so we know now MD5 is not secrured but not all the application are insecured
 APOP
 
 mail : server send challenge c and computer answer MD5(c \\ password) 
-
+meaningful collision (target msg) 
 #####################
 SHA-1
 
@@ -350,6 +350,7 @@ it based on the sponge construction
 
 the message is absobed by a sponge 
 the disgest is squeezed out 
+same lenght output 
 
 
 

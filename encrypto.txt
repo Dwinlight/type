@@ -1,0 +1,121 @@
+Encryptology
+#############
+#########
+#####
+##
+#
+
+
+Deterministic is weak: if you have 2 encrypted message, you can easily compare the two one and check if these are equal 
+exemple: vote system, you can know who voted for the same candidate 
+
+We need to randomize encryption 
+We need to use a IV (initial value) like c= E_k,IV(m)
+IV could be a pulbic random number or a secret number that both parties can recontruct
+
+
+2 kind of symmetri  encryption 
+
+the secret key is k
+in both we ry to generate random things
+
+stream cipher: k et IV generate a stream of PR bits which is XORed with message 
+
+Block cipher: k defijnes a permutaiton over a block of bits, this permutation is used many times to encrypt arbitrary messages throught a mode 
+
+#################
+
+Stream cipher 
+
+
+Input:
+
+a stream Message M
+a secret key k (typically 128bit) 
+an IV (typically 64 to 128 bits) 
+
+Output:
+
+a cipher stream C
+
+
+Most common sychnronus stream cipher C= M XOR F where F is a stream of PRB generated from k and IV
+To find M = C XOR F
+
+Usage : WW2, radio communication(hardware eficiency  => low consumption ), many propraritary and confidential algo, RC4(wifi), A5/1(GSM) and E0 (bluetooth)
+
+
+The need for IV
+there is an internal state initialized by k and IV 
+
+at each clock cycle: 1/ output a fixed number of PRB 2/Update internal state
+
+
+####################
+RC4
+####################
+1987 by rivest
+
+1994 quelquu'un balance l'algo en ligne anynimement 
+
+utilisé en masse par: SSL WEP WPA windows Skype BitTorrent Oracel Lotus 
+very simple to implement
+plus un PRN generator que un stream cipher 
+
+Internal state: 
+
+2 bytes i and j operation mod 256
+
+A permutation over bytes = { 0 , ....., 255}
+represented as an array S= [0...255]
+
+The number of internal stated is huge 2¹⁷⁰⁰
+At each clock cycle RC4 output one PRB
+
+
+Description 
+
+Initializatio by key k= array of bytes
+
+S= (0,...255) j = 0
+for i in range (0,255)
+	j = S[i] + K[i mod m]
+	swap S[i] and S[j] 
+update and Byte Extratition 
+
+i++
+j= j+S[i]
+swap S[i] S[j]
+output S[S[j] + S[i]]
+
+
+la sortie c'est le F de toute à l'heure
+
+
+Security test: exe l'algo pour plein de K différent et regarde les freq d'apparition des bytes => prb pour le 1 et 128 
+
+RC4 in WEP
+
+
+
+
+Countermesure
+
+WPA uses RC4 more securely
+	IV longer
+	secret key is hash (IV || pwd)
+in WPA RC4 encryption is replaced by a stream cipher based on a bloc cipher: AES
+
+
+Attacks on TLS-RC4
+
+TLS is a security protocol for the internet 
+
+
+
+Conclusion 
+
+RC4 very easy to use (many virus use it bc it's small and hard to detect)
+only average security 
+slow on modern platforms: tailored for 8bit architectures
+ 
